@@ -54,7 +54,8 @@ export default {
   data() {
     return {
       form: {
-        author: this.commentData && 'name' in this.commentData ? this.commentData.author : '',
+        id: this.commentData && 'id' in this.commentData ? this.commentData.id : null,
+        author: this.commentData && 'author' in this.commentData ? this.commentData.author : '',
         text: this.commentData && 'text' in this.commentData ? this.commentData.text : '',
         state: this.commentData && 'state' in this.commentData ? this.commentData.state : '',
         parentId:

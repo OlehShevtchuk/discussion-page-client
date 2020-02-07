@@ -19,6 +19,7 @@
     <div class="comment-block">
       <Comment
         :comment="{
+          id: 10,
           author: 'Oleh',
           state: 'positive',
           text:

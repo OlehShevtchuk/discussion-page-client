@@ -17,7 +17,13 @@
         :commentData="{ parentId: comment.parentId }"
       />
       <div class="control-block">
-        <i class="el-icon-edit cntBtn"></i>
+        <i class="el-icon-edit cntBtn" @click="isEditCommentForm = true"></i>
+        <CommentForm
+          v-model="isEditCommentForm"
+          :title="`Edit ${comment.author} comment`"
+          :actionFnc="editComment"
+          :commentData="comment"
+        />
         <i class="el-icon-delete cntBtn"></i>
       </div>
     </div>
@@ -26,7 +32,7 @@
 
 <script>
 import CommentForm from '../form/CommentForm';
-import { addComment } from '../../api/comment';
+import { addComment, editComment } from '../../api/comment';
 
 export default {
   props: {
@@ -40,10 +46,12 @@ export default {
   data() {
     return {
       isToCommentForm: false,
+      isEditCommentForm: false,
     };
   },
   methods: {
     addComment,
+    editComment,
   },
   computed: {},
 };
