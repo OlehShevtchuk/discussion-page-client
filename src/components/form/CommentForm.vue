@@ -1,34 +1,54 @@
 <template>
-  <el-form class="form" ref="form" :model="form" label-width="80px" @submit.native.prevent>
-    <el-form-item label="Your name">
-      <el-input v-model="form.name"></el-input>
-    </el-form-item>
-    <el-form-item label="Comment">
-      <el-input
-        type="textarea"
-        :rows="5"
-        placeholder="Please enter your comment"
-        v-model="form.comment"
-      >
-      </el-input>
-    </el-form-item>
-    <el-form-item label="State">
-      <el-radio-group v-model="form.state">
-        <el-radio label="Positive"></el-radio>
-        <el-radio label="Negative"></el-radio>
-      </el-radio-group>
-    </el-form-item>
-    <el-form-item style="text-align: right;">
-      <el-button class="btn" type="primary" @click="onSubmit">Submit</el-button>
-    </el-form-item>
-  </el-form>
+  <el-dialog
+    :title="title"
+    :visible.sync="visible"
+    :before-close="handleClose"
+    :width="getWindowWidth() < 500 ? '90%' : '60%'"
+  >
+    <el-form class="form" ref="form" :model="form" label-width="80px" @submit.native.prevent>
+      <el-form-item label="Your name">
+        <el-input v-model="form.name"></el-input>
+      </el-form-item>
+      <el-form-item label="Comment">
+        <el-input
+          type="textarea"
+          :rows="5"
+          placeholder="Please enter your comment"
+          v-model="form.comment"
+        >
+        </el-input>
+      </el-form-item>
+      <el-form-item label="State">
+        <el-radio-group v-model="form.state">
+          <el-radio label="Positive"></el-radio>
+          <el-radio label="Negative"></el-radio>
+        </el-radio-group>
+      </el-form-item>
+      <el-form-item style="text-align: right;">
+        <el-button class="btn" type="primary" @click="onSubmit">Submit</el-button>
+      </el-form-item>
+    </el-form>
+  </el-dialog>
 </template>
 
 <script>
 export default {
+  model: {
+    prop: 'visible',
+    event: 'changeVisibility',
+  },
   props: {
     commentData: {
       type: Object,
+    },
+    title: {
+      type: String,
+    },
+    visible: {
+      type: Boolean,
+    },
+    actionFnc: {
+      type: Function,
     },
   },
   data() {
@@ -43,13 +63,23 @@ export default {
   },
   methods: {
     async onSubmit() {
-      //await addComment(this.form);
+      this.$emit('changeVisibility', false);
+      //await this.actionFnc(this.form);
+    },
+    handleClose() {
+      this.$emit('changeVisibility', false);
+    },
+    getWindowWidth() {
+      return window.innerWidth;
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.form-dialog {
+  min-width: 50%;
+}
 .form {
   width: 100%;
   height: 100%;
