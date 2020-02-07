@@ -20,8 +20,8 @@
       </el-form-item>
       <el-form-item label="State">
         <el-radio-group v-model="form.state">
-          <el-radio label="Positive"></el-radio>
-          <el-radio label="Negative"></el-radio>
+          <el-radio label="positive"></el-radio>
+          <el-radio label="negative"></el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item style="text-align: right;">
