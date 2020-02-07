@@ -7,14 +7,14 @@
   >
     <el-form class="form" ref="form" :model="form" label-width="80px" @submit.native.prevent>
       <el-form-item label="Your name">
-        <el-input v-model="form.name"></el-input>
+        <el-input v-model="form.author"></el-input>
       </el-form-item>
       <el-form-item label="Comment">
         <el-input
           type="textarea"
           :rows="5"
           placeholder="Please enter your comment"
-          v-model="form.comment"
+          v-model="form.text"
         >
         </el-input>
       </el-form-item>
@@ -54,17 +54,17 @@ export default {
   data() {
     return {
       form: {
-        name: this.commentData ? this.commentData.name : '',
-        comment: this.commentData ? this.commentData.comment : '',
+        author: this.commentData ? this.commentData.name : '',
+        text: this.commentData ? this.commentData.comment : '',
         state: this.commentData ? this.commentData.state : '',
-        parentId: this.commentData ? this.commentData.parentId : '',
+        parentId: this.commentData ? this.commentData.parentId : null,
       },
     };
   },
   methods: {
     async onSubmit() {
       this.$emit('changeVisibility', false);
-      //await this.actionFnc(this.form);
+      await this.actionFnc(this.form);
     },
     handleClose() {
       this.$emit('changeVisibility', false);
