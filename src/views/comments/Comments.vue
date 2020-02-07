@@ -24,6 +24,7 @@
           text:
             'hello friend hello friend hello friend hello friend hello friend hello friend hello friends hello friend hello friend hello friend hello friend',
           createdAt: '2020.02.07 16:22',
+          parentId: 4,
         }"
       />
     </div>

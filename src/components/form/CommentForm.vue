@@ -54,10 +54,11 @@ export default {
   data() {
     return {
       form: {
-        author: this.commentData ? this.commentData.name : '',
-        text: this.commentData ? this.commentData.comment : '',
-        state: this.commentData ? this.commentData.state : '',
-        parentId: this.commentData ? this.commentData.parentId : null,
+        author: this.commentData && 'name' in this.commentData ? this.commentData.author : '',
+        text: this.commentData && 'text' in this.commentData ? this.commentData.text : '',
+        state: this.commentData && 'state' in this.commentData ? this.commentData.state : '',
+        parentId:
+          this.commentData && 'parentId' in this.commentData ? this.commentData.parentId : null,
       },
     };
   },

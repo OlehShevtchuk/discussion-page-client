@@ -14,6 +14,7 @@
         v-model="isToCommentForm"
         :title="`Сomment on ${comment.author}'s comment`"
         :actionFnc="addComment"
+        :commentData="{ parentId: comment.parentId }"
       />
       <div class="control-block">
         <i class="el-icon-edit cntBtn"></i>
@@ -24,7 +25,7 @@
 </template>
 
 <script>
-import { CommentForm } from '../form/CommentForm';
+import CommentForm from '../form/CommentForm';
 import { addComment } from '../../api/comment';
 
 export default {
