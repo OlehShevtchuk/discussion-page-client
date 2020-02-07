@@ -24,7 +24,16 @@
           :actionFnc="editComment"
           :commentData="comment"
         />
-        <i class="el-icon-delete cntBtn"></i>
+        <el-popconfirm
+          confirmButtonText="OK"
+          cancelButtonText="No, Thanks"
+          icon="el-icon-info"
+          iconColor="red"
+          title="Are you sure to delete this?"
+          v-on="{ onConfirm }"
+        >
+          <i class="el-icon-delete cntBtn" slot="reference"></i>
+        </el-popconfirm>
       </div>
     </div>
   </div>
@@ -32,7 +41,7 @@
 
 <script>
 import CommentForm from '../form/CommentForm';
-import { addComment, editComment } from '../../api/comment';
+import { addComment, editComment, deleteComment } from '../../api/comment';
 
 export default {
   props: {
@@ -52,6 +61,9 @@ export default {
   methods: {
     addComment,
     editComment,
+    async onConfirm() {
+      deleteComment(this.comment.id);
+    },
   },
   computed: {},
 };

@@ -11,3 +11,7 @@ export function addComment(params) {
 export function editComment(params) {
   return axios.put('/comments', { params });
 }
+
+export function deleteComment(id) {
+  return axios.delete(`/comments?id=${id}`);
+}
