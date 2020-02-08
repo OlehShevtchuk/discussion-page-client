@@ -18,6 +18,7 @@
       <div class="comment-footer">
         <el-button class="ansBtn" type="text" @click="isToCommentForm = true">Reply</el-button>
         <CommentForm
+          v-if="isToCommentForm"
           v-model="isToCommentForm"
           :title="`Reply to ${comment.author}'s comment`"
           :actionFnc="addComment"

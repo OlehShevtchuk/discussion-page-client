@@ -65,7 +65,8 @@ export default {
         id: this.commentData && 'id' in this.commentData ? this.commentData.id : null,
         author: this.commentData && 'author' in this.commentData ? this.commentData.author : '',
         text: this.commentData && 'text' in this.commentData ? this.commentData.text : '',
-        state: this.commentData && 'state' in this.commentData ? this.commentData.state : '',
+        state:
+          this.commentData && 'state' in this.commentData ? this.commentData.state : 'positive',
         parentId:
           this.commentData && 'parentId' in this.commentData ? this.commentData.parentId : null,
       },
