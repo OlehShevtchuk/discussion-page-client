@@ -11,28 +11,15 @@
         <el-button
           type="primary"
           icon="el-icon-plus"
-          
           @click="isCommentForm = true"
           slot="reference"
           class="addBtn"
         ></el-button>
-
       </el-popover>
     </div>
 
     <CommentForm v-model="isCommentForm" title="Add a comment" :actionFnc="addComment" />
     <div class="comment-block">
-      <!-- <Comment
-        :comment="{
-          id: 10,
-          author: 'Oleh',
-          state: 'positive',
-          text:
-            'hello friend hello friend hello friend hello friend hello friend hello friend hello friends hello friend hello friend hello friend hello friend',
-          createdAt: '2020.02.07 16:22',
-          parentId: 4,
-        }"
-      /> -->
       <Comment
         v-for="comment in commentsData"
         :key="comment.id"

@@ -1,14 +1,18 @@
 <template>
   <div id="app">
-    <Header />
-    <div id="comments-container">
-      <Comments />
+    <div class="content">
+      <Header />
+      <div id="comments-container">
+        <Comments />
+      </div>
     </div>
+    <Footer />
   </div>
 </template>
 
 <script>
 import Header from './components/layouts/Header';
+import Footer from './components/layouts/Footer';
 import Comments from './views/comments/Comments';
 
 export default {
@@ -16,6 +20,7 @@ export default {
   components: {
     Header,
     Comments,
+    Footer,
   },
 };
 </script>
@@ -31,6 +36,12 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+.content {
+  flex: 1 0 auto;
 }
 #comments-container {
   min-width: 50%;
