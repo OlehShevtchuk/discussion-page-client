@@ -37,4 +37,9 @@ export default {
   margin: 50px 20px;
   text-align: left;
 }
+@media (max-width: 500px) {
+  #comments-container {
+    margin: 50px 5px;
+  }
+}
 </style>

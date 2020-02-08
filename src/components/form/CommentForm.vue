@@ -5,11 +5,19 @@
     :before-close="handleClose"
     :width="getWindowWidth() < 500 ? '90%' : '60%'"
   >
-    <el-form class="form" ref="form" :model="form" label-width="80px" @submit.native.prevent>
-      <el-form-item label="Your name">
+    <el-form
+      class="form"
+      :rules="rules"
+      ref="form"
+      :model="form"
+      label-width="80px"
+      label-position="top"
+      @submit.native.prevent
+    >
+      <el-form-item label="Your name" prop="author">
         <el-input v-model="form.author"></el-input>
       </el-form-item>
-      <el-form-item label="Comment">
+      <el-form-item label="Comment" prop="text">
         <el-input
           type="textarea"
           :rows="5"
@@ -18,7 +26,7 @@
         >
         </el-input>
       </el-form-item>
-      <el-form-item label="State">
+      <el-form-item label="State" prop="state">
         <el-radio-group v-model="form.state">
           <el-radio label="positive"></el-radio>
           <el-radio label="negative"></el-radio>
@@ -61,12 +69,26 @@ export default {
         parentId:
           this.commentData && 'parentId' in this.commentData ? this.commentData.parentId : null,
       },
+      rules: {
+        author: [
+          { required: true, message: 'Please input your name', trigger: 'blur' },
+          { min: 3, max: 20, message: 'Length should be 3 to 30', trigger: 'blur' },
+        ],
+        text: [{ required: true, message: 'Please input comment', trigger: 'blur' }],
+        state: [{ required: true, message: 'Please check state', trigger: 'change' }],
+      },
     };
   },
   methods: {
     async onSubmit() {
-      this.$emit('changeVisibility', false);
-      await this.actionFnc(this.form);
+      this.$refs['form'].validate(async valid => {
+        if (valid) {
+          this.$emit('changeVisibility', false);
+          await this.actionFnc(this.form);
+          await this.$store.dispatch('fetchComments');
+          this.form = {};
+        }
+      });
     },
     handleClose() {
       this.$emit('changeVisibility', false);

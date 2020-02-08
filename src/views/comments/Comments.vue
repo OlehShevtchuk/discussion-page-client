@@ -1,23 +1,28 @@
 <template>
   <div class="">
-    <el-popover
-      placement="top-start"
-      width="210"
-      trigger="hover"
-      content="Click to open a dialog to add a new comment"
-    >
-      <el-button
-        type="primary"
-        icon="el-icon-plus"
-        circle
-        @click="isCommentForm = true"
-        slot="reference"
-        class="addBtn"
-      ></el-button>
-    </el-popover>
+    <div class="new-comment">
+      <h3>Add a new comment</h3>
+      <el-popover
+        placement="top-start"
+        width="210"
+        trigger="hover"
+        content="Click to open a dialog to add a new comment"
+      >
+        <el-button
+          type="primary"
+          icon="el-icon-plus"
+          
+          @click="isCommentForm = true"
+          slot="reference"
+          class="addBtn"
+        ></el-button>
+
+      </el-popover>
+    </div>
+
     <CommentForm v-model="isCommentForm" title="Add a comment" :actionFnc="addComment" />
     <div class="comment-block">
-      <Comment
+      <!-- <Comment
         :comment="{
           id: 10,
           author: 'Oleh',
@@ -27,6 +32,12 @@
           createdAt: '2020.02.07 16:22',
           parentId: 4,
         }"
+      /> -->
+      <Comment
+        v-for="comment in commentsData"
+        :key="comment.id"
+        :comment="comment"
+        :nestedComments="comment.children"
       />
     </div>
   </div>
@@ -47,26 +58,37 @@ export default {
       isCommentForm: false,
     };
   },
+  async mounted() {
+    await this.$store.dispatch('fetchComments');
+  },
   methods: {
     addComment,
+  },
+  computed: {
+    commentsData() {
+      return this.$store.getters.comments;
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .addBtn {
-  width: 60px;
-  height: 60px;
-  margin-left: 5%;
+  margin-left: 10px;
 }
 .comment-block {
   margin-top: 40px;
   margin-left: 7%;
 }
+.new-comment {
+  h3 {
+    display: inline-block;
+  }
+}
 @media (max-width: 500px) {
-  .addBtn {
-    width: 40px;
-    height: 40px;
+  .comment-block {
+    margin-left: 10px;
+    margin-right: 10px;
   }
 }
 </style>
