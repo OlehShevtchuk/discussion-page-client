@@ -78,7 +78,15 @@ export default {
       isToCommentForm: false,
       isEditCommentForm: false,
       showChildren: false,
+      windowWidth: 0,
     };
+  },
+  created() {
+    window.addEventListener('resize', this.handleResize);
+    this.handleResize();
+  },
+  destroyed() {
+    window.removeEventListener('resize', this.handleResize);
   },
   methods: {
     addComment,
@@ -90,12 +98,15 @@ export default {
     toggleChildren() {
       this.showChildren = !this.showChildren;
     },
+    handleResize() {
+      this.windowWidth = window.innerWidth;
+    },
   },
   computed: {
     indent() {
       let depth = this.comment.hierarchyLevel - 1;
       let marginLeft = depth * 40;
-      if (depth >= 1 && window.innerWidth <= 400) marginLeft = 10;
+      if (depth >= 1 && this.windowWidth <= 400) marginLeft = 10;
       return {
         marginLeft: marginLeft + 'px',
       };
